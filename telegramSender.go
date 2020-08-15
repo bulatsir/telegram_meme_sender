@@ -22,8 +22,8 @@ func errorCheck(err error) {
 }
 
 type ConfigJson struct {
-	bot_token string
-	chat_id   string
+	Bot_token string `json:"bot_token"`
+	Chat_id   string `json:"chat_id"`
 }
 
 func main() {
@@ -33,8 +33,8 @@ func main() {
 	config := new(ConfigJson)
 	err := decoder.Decode(&config)
 	errorCheck(err)
-	fmt.Println(config.bot_token)
-	postUriForJpg := "https://api.telegram.org/" + config.bot_token + "/sendPhoto"
+	fmt.Println(config)
+	postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendPhoto"
 	fmt.Println(postUriForJpg)
 
 	tick := time.NewTicker(time.Second * 15)
@@ -57,8 +57,6 @@ func main() {
 				openedFile, err := os.Open(fileInDirectory)
 				errorCheck(err)
 
-				err = openedFile.Close()
-				errorCheck(err)
 				//create buffer
 				body := new(bytes.Buffer)
 
@@ -77,7 +75,7 @@ func main() {
 				field_part, err := writer.CreateFormField("chat_id")
 
 				//write value for parameter
-				_, err = field_part.Write([]byte(config.chat_id))
+				_, err = field_part.Write([]byte(config.Chat_id))
 				errorCheck(err)
 
 				writer.Close()
@@ -89,6 +87,12 @@ func main() {
 				client := &http.Client{}
 				resp, err := client.Do(req)
 				errorCheck(err)
+				
+				err = openedFile.Close()
+				errorCheck(err)		
+				
+				err = os.Remove(fileInDirectory)
+				errorCheck(err)		
 
 				log.Println(resp)
 
