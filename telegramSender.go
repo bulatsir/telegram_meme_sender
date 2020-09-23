@@ -51,7 +51,7 @@ func main() {
 			fileInDirectory := f.Name()
 
 			extension := filepath.Ext(fileInDirectory)
-			if extension == ".jpg" or extension == ".png" {
+			if extension == ".jpg" || extension == ".png" {
 				//open file
 				openedFile, err := os.Open(fileInDirectory)
 				errorCheck(err)
@@ -96,7 +96,7 @@ func main() {
 				log.Println(resp)
 
 			}
-			if extension == ".mp4" or extension==".gif" {
+			if extension == ".mp4" || or extension== ".gif" {
 				postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendVideo"
 				//open file
 				openedFile, err := os.Open(fileInDirectory)
