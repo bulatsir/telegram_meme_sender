@@ -96,7 +96,7 @@ func main() {
 				log.Println(resp)
 
 			}
-			if extension == ".mp4" || or extension == ".gif" {
+			if extension == ".mp4" || extension == ".gif" {
 				postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendVideo"
 				//open file
 				openedFile, err := os.Open(fileInDirectory)
