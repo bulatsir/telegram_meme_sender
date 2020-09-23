@@ -51,9 +51,8 @@ func main() {
 			fileInDirectory := f.Name()
 
 			extension := filepath.Ext(fileInDirectory)
-			if extension == ".jpg" {
+			if extension == ".jpg" or extension == ".png" {
 				//open file
-
 				openedFile, err := os.Open(fileInDirectory)
 				errorCheck(err)
 
@@ -87,17 +86,62 @@ func main() {
 				client := &http.Client{}
 				resp, err := client.Do(req)
 				errorCheck(err)
-				
+
 				err = openedFile.Close()
-				errorCheck(err)		
-				
+				errorCheck(err)
+
 				err = os.Remove(fileInDirectory)
-				errorCheck(err)		
+				errorCheck(err)
 
 				log.Println(resp)
 
 			}
+			if extension == ".mp4" or extension==".gif" {
+				postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendVideo"
+				//open file
+				openedFile, err := os.Open(fileInDirectory)
+				errorCheck(err)
 
+				//create buffer
+				body := new(bytes.Buffer)
+
+				//create writer from body
+				writer := multipart.NewWriter(body)
+
+				//initializing field for file
+				file_part, err := writer.CreateFormFile("video", fileInDirectory)
+				errorCheck(err)
+
+				//copy openedFile to file_part?
+				_, err = io.Copy(file_part, openedFile)
+				errorCheck(err)
+
+				//initializing field for another parameter
+				field_part, err := writer.CreateFormField("chat_id")
+
+				//write value for parameter
+				_, err = field_part.Write([]byte(config.Chat_id))
+				errorCheck(err)
+
+				writer.Close()
+
+				req, err := http.NewRequest("POST", postUriForJpg, body)
+
+				//add header
+				req.Header.Set("Content-Type", writer.FormDataContentType())
+				client := &http.Client{}
+				resp, err := client.Do(req)
+				errorCheck(err)
+
+				err = openedFile.Close()
+				errorCheck(err)
+
+				err = os.Remove(fileInDirectory)
+				errorCheck(err)
+
+				log.Println(resp)
+
+			}
 		}
 	}
 }
