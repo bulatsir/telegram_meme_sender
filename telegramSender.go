@@ -22,12 +22,13 @@ func errorCheck(err error) {
 }
 
 type ConfigJson struct {
-	Bot_token string `json:"bot_token"`
-	Chat_id   string `json:"chat_id"`
+	Bot_token      string `json:"bot_token"`
+	Chat_id        string `json:"chat_id"`
+	Period_seconds int64  `json: "period_seconds"`
 }
 
 func main() {
-
+	//json decode
 	jsonConfigFile, _ := os.Open("config.json")
 	decoder := json.NewDecoder(jsonConfigFile)
 	config := new(ConfigJson)
@@ -37,10 +38,10 @@ func main() {
 	postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendPhoto"
 	fmt.Println(postUriForJpg)
 
-	tick := time.NewTicker(time.Second * 15)
+	tick := time.NewTicker(time.Second * time.Duration(config.Period_seconds))
 	for _ = range tick.C {
 		//get list of files
-		fileList, err := ioutil.ReadDir("./")
+		fileList, err := ioutil.ReadDir("./files")
 		errorCheck(err)
 		//shuffle fileList slice
 		for _, f := range fileList {

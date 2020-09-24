@@ -1,4 +1,5 @@
 { 
     "bot_token": "1180456164:AAFwXK9x0LeB9TPZuhBfbAz0FfNXdUSrXVY",
-    "chat_id": "-1001358121670" 
+    "chat_id": "-1001358121670",
+    "period_seconds": "15"
 }
