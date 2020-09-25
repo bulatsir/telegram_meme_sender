@@ -50,7 +50,7 @@ func main() {
 				fileList[i], fileList[j] = fileList[j], fileList[i]
 			})
 
-			fileInDirectory := f.Name()
+			fileInDirectory := "./files" + f.Name()
 
 			extension := filepath.Ext(fileInDirectory)
 			if extension == ".jpg" || extension == ".png" {
