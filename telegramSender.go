@@ -24,7 +24,7 @@ func errorCheck(err error) {
 type ConfigJson struct {
 	Bot_token      string `json:"bot_token"`
 	Chat_id        string `json:"chat_id"`
-	Period_seconds int64  `json: "period_seconds"`
+	Period_minutes int64  `json: "period_minutes"`
 }
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 	postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendPhoto"
 	fmt.Println(postUriForJpg)
 
-	tick := time.NewTicker(time.Second * time.Duration(config.Period_seconds))
+	tick := time.NewTicker(time.Minute * time.Duration(config.Period_minutes))
 	for _ = range tick.C {
 		//get list of files
 		fileList, err := ioutil.ReadDir("./files")
