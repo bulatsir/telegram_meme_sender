@@ -39,7 +39,8 @@ func main() {
 	fmt.Println(postUriForJpg)
 
 	tick := time.NewTicker(time.Minute * time.Duration(config.Period_minutes))
-	for _ = range tick.C {
+	for ; true; <-tick.C {
+
 		//get list of files
 		fileList, err := ioutil.ReadDir("./files")
 		errorCheck(err)
