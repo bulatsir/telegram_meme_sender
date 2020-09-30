@@ -17,5 +17,5 @@ Just build the binary from golang sources code, input your bot parameters into c
 1. Сборка
 * перейти на сборку telegramSender.go *
 
-2. Беги
+2. Запуск
 *. / telegramSender *
