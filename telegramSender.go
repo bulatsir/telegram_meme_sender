@@ -36,7 +36,6 @@ func main() {
 	errorCheck(err)
 	fmt.Println(config)
 	postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendPhoto"
-	fmt.Println(postUriForJpg)
 
 	tick := time.NewTicker(time.Minute * time.Duration(config.Period_minutes))
 	for ; true; <-tick.C {
@@ -46,7 +45,7 @@ func main() {
 		errorCheck(err)
 		//random from slice
 		randomIndex := rand.Intn(len(fileList))
-		f := fileList[randomIndex]
+		f := fileList[randomIndex]s
 
 		fileInDirectory := "./files/" + f.Name()
 
