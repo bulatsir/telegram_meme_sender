@@ -38,17 +38,17 @@ func main() {
 	postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendPhoto"
 	fmt.Println(postUriForJpg)
 
-	tick := time.NewTicker(time.Minute * 2)
-	for ; true; <-tick.C {
+	//get list of files
+	fileList, err := ioutil.ReadDir("./files")
+	errorCheck(err)
+	//shuffle fileList slice
+	for _, f := range fileList {
+		rand.Shuffle(len(fileList), func(i, j int) {
+			fileList[i], fileList[j] = fileList[j], fileList[i]
+		})
 
-		//get list of files
-		fileList, err := ioutil.ReadDir("./files")
-		errorCheck(err)
-		//shuffle fileList slice
-		for _, f := range fileList {
-			rand.Shuffle(len(fileList), func(i, j int) {
-				fileList[i], fileList[j] = fileList[j], fileList[i]
-			})
+		tick := time.NewTicker(time.Minute * 2)
+		for ; true; <-tick.C {
 
 			fileInDirectory := "./files/" + f.Name()
 
