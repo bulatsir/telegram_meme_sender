@@ -45,7 +45,7 @@ func main() {
 		errorCheck(err)
 		//random from slice
 		randomIndex := rand.Intn(len(fileList))
-		f := fileList[randomIndex]s
+		f := fileList[randomIndex]
 
 		fileInDirectory := "./files/" + f.Name()
 
