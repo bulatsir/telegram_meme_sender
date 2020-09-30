@@ -38,7 +38,7 @@ func main() {
 	postUriForJpg := "https://api.telegram.org/bot" + config.Bot_token + "/sendPhoto"
 	fmt.Println(postUriForJpg)
 
-	tick := time.NewTicker(time.Minute * time.Duration(Period_minutes))
+	tick := time.NewTicker(time.Minute * time.Duration(config.Period_minutes))
 	for ; true; <-tick.C {
 
 		//get list of files
